@@ -1,3 +1,4 @@
+// @ts-ignore
 import { createI18nServer } from 'next-app-translate/server';
 
 
