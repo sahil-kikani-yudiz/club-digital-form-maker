@@ -1,27 +1,13 @@
-import { useTranslations } from 'next-intl'
-import CustomImage from '@/shared/ui/customImage'
-import SearchIcon from '@/assets/icons/search-icon.svg'
 import { useState } from 'react'
 import Divider from '@/shared/ui/divider'
-import ToolbarCard from '../toolbarCard'
-import { getToolList } from '@/query/toolbar/toolbar.query'
-import { useQuery } from '@tanstack/react-query'
-import Accordion from '@/shared/ui/accordian'
-import { SortableContext } from '@dnd-kit/sortable'
 
-export default function Toolbar() {
+import Accordion from '@/shared/ui/accordian'
+import ToolbarCard from './toolbarCard'
+
+export default function Toolbar({ toolList }: any) {
   const [value, setValue] = useState('')
 
-  const { data, isFetching } = useQuery<any>({
-    queryKey: ['getToll'],
-    queryFn: () => getToolList(),
-    select: (data) => data?.data?.data,
-    staleTime: 5000
-  })
-
-  const onDragStart = () => {
-    // console.log('Dragging started')
-  }
+  const onDragStart = () => {}
 
   function ToolListing(data: []) {
     return (
@@ -34,9 +20,8 @@ export default function Toolbar() {
   }
 
   return (
-       
     <aside className='lg:w-[337px] md:w-[200px]  flex flex-col max-w-[337px] mx-4 border rounded-lg bg-theme overflow-y-auto border-r p-2'>
-      <div className='relative mb-4'>
+      {/* <div className='relative mb-4'>
         <div className='absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none'>
           <svg
             className='w-4 h-4 text-gray-500 dark:text-gray-400'
@@ -64,9 +49,8 @@ export default function Toolbar() {
           required
         />
       </div>
-      <Divider />
-      {data?.map((item: any, index: number) => {
-        // console.log(item, 'item')
+      <Divider /> */}
+      {toolList?.map((item: any, index: number) => {
         return (
           <div key={index}>
             <Accordion title={item?.sName} body={ToolListing(item?.aFields)} />
