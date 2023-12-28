@@ -55,7 +55,7 @@ export default function FormSharePage({ id }: FormSharePage) {
                 <input
                   ref={linkRef}
                   type='text'
-                  value={`http://192.168.10.101:3000/myform/${id}`}
+                  value={`https://club-digital-form-maker.vercel.app/myform/${id}`}
                   readOnly
                   className='outline-none border-none w-full bg-primary-200 p-4 border rounded-lg'
                 />
@@ -73,7 +73,7 @@ export default function FormSharePage({ id }: FormSharePage) {
               <Divider />
 
               <Canvas
-                text={`http://192.168.10.101:3000/myform/${id}`}
+                text={`https://club-digital-form-maker.vercel.app/myform/${id}`}
                 options={{
                   errorCorrectionLevel: 'M',
                   margin: 5,
