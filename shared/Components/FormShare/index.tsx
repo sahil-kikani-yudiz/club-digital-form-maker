@@ -44,9 +44,9 @@ export default function FormSharePage({ id }: FormSharePage) {
       </div>
 
       <div className='w-full h-[calc(100%-66px)] p-2 flex bg-theme border rounded-lg mt-3 justify-center'>
-        <div className='h-full w-fit min-w-[720px] justify-center flex flex-col items-center'>
+        <div className='h-full  w-full justify-center flex flex-col items-center'>
           <div>{t('shareForm')}</div>
-          <div className='h-full w-fit min-w-[710px] p-2'>
+          <div className='h-full w-full md:w-[710px] p-2'>
             <div className='w-full border rounded-lg h-fit p-4'>
               <div>{t('copyLinkToShare')}</div>
               <div className='text-sm text-gray-500 mb-2'>{t('downloadQr')}</div>
@@ -55,7 +55,7 @@ export default function FormSharePage({ id }: FormSharePage) {
                 <input
                   ref={linkRef}
                   type='text'
-                  value={`https://club-digital-form-maker.vercel.app/myform/${id}`}
+                  value={`http://192.168.10.101:3000/myform/${id}`}
                   readOnly
                   className='outline-none border-none w-full bg-primary-200 p-4 border rounded-lg'
                 />
@@ -73,7 +73,7 @@ export default function FormSharePage({ id }: FormSharePage) {
               <Divider />
 
               <Canvas
-                text={`https://club-digital-form-maker.vercel.app/myform/${id}`}
+                text={`http://192.168.10.101:3000/myform/${id}`}
                 options={{
                   errorCorrectionLevel: 'M',
                   margin: 5,

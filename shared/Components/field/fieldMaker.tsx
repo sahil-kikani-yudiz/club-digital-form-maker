@@ -25,11 +25,15 @@ type fieldMakerTypes = {
   errors: Object
   setValue?: Function
   control?: any
+  dynamicFormData?: any
+  reset?: Function
 }
 
-export default function FieldMaker({ field, register, errors, setValue, control }: fieldMakerTypes) {
+export default function FieldMaker({ field, register, errors, setValue, control, reset }: fieldMakerTypes) {
   const minLength = field?.oSettings?.nMinLength
   const maxLength = field?.oSettings?.nMaxLength
+
+  console.log(field, 'field')
 
   return (
     <>
@@ -46,6 +50,8 @@ export default function FieldMaker({ field, register, errors, setValue, control 
                 className='mt-2 '
                 required={field?.oSettings?.bIsRequired}
                 value={value}
+                control={control}
+                name={`oAnswers.${field?.oSettings?.iUniqueId}`}
                 onChange={(selectedOption) => onChange(selectedOption?.sValue)}
                 errors={errors}
                 id={field?.oSettings?.iUniqueId}
@@ -56,41 +62,30 @@ export default function FieldMaker({ field, register, errors, setValue, control 
       )}
       {field?.oField?.oFieldType?.sType === 'radio' && (
         <>
-          <Controller
-            name={`oAnswers.${field?.oSettings?.iUniqueId}`}
+          <RadioButton
+            required={field?.oSettings?.bIsRequired}
+            options={field?.oSettings?.aOptions}
+            register={register}
+            errors={errors}
             control={control}
-            rules={field?.oSettings?.bIsRequired ? { required: validationErrors.required } : {}}
-            render={({ field: { onChange, value = [] } }) => (
-              <RadioButton
-                required={field?.oSettings?.bIsRequired}
-                options={field?.oSettings?.aOptions}
-                errors={errors}
-                key={field?.oSettings?.iUniqueId}
-                id={field?.oSettings?.iUniqueId}
-                label={field?.oSettings?.sLabel}
-                onChange={(selectedOption) => onChange(selectedOption?.sValue)}
-              />
-            )}
+            name={`oAnswers.${field?.oSettings?.iUniqueId}`}
+            key={field?.oSettings?.iUniqueId}
+            id={field?.oSettings?.iUniqueId}
+            label={field?.oSettings?.sLabel}
           />
         </>
       )}
 
       {field?.oField?.oFieldType?.sType === 'checkbox' && (
         <>
-          <Controller
+          <CheckBox
             name={`oAnswers.${field?.oSettings?.iUniqueId}`}
             control={control}
-            rules={field?.oSettings?.bIsRequired ? { required: validationErrors.required } : {}}
-            render={({ field: { onChange, value = [], ref } }) => (
-              <CheckBox
-                control={control}
-                options={field?.oSettings?.aOptions}
-                label={field?.oSettings?.sLabel}
-                id={field?.oSettings?.iUniqueId}
-                setValue={setValue}
-                onChange={(selectedOption) => onChange(selectedOption)}
-              />
-            )}
+            options={field?.oSettings?.aOptions}
+            label={field?.oSettings?.sLabel}
+            id={field?.oSettings?.iUniqueId}
+            reset={reset}
+            // setValue={setValue}
           />
         </>
       )}
@@ -114,9 +109,6 @@ export default function FieldMaker({ field, register, errors, setValue, control 
             />
           </>
         )}
-      {/* <button type='submit' onClick={handleSubmit(onSubmit)}>
-        Submit
-      </button> */}
     </>
   )
 }

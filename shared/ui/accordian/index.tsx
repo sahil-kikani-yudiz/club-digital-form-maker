@@ -9,10 +9,11 @@ type AccordionTypes = {
   isOpen?: boolean
   onOpen?: () => void
   className?: string
+  defaultAccordion?: boolean
 }
 
-function Accordion({ title, body, isOpen, onOpen, className = '' }: AccordionTypes) {
-  const [open, setOpen] = useState(false)
+function Accordion({ title, body, isOpen, defaultAccordion, onOpen, className = '' }: AccordionTypes) {
+  const [open, setOpen] = useState(defaultAccordion)
   const isActive = onOpen ? isOpen : open
   function handleOpen() {
     onOpen ? onOpen() : setOpen((prev) => !prev)

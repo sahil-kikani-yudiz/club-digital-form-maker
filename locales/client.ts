@@ -1,5 +1,6 @@
-// import { createI18nClient } from 'next-app-translate'
+'use client'
 // @ts-ignore
+
 import { createI18nClient } from 'next-app-translate/client';
 
 

@@ -1,4 +1,6 @@
 import type { Config } from 'tailwindcss'
+import { colors } from './shared/constants/colors'
+
 
 const breakpoints = ['', 'lg', 'md', 'sm', 'xxl', 'xl']
 
@@ -8,7 +10,7 @@ const config: Config = {
     './shared/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './app/*.{js,ts,jsx,tsx,mdx}'
-  ],
+  ],safelist : colors.flatMap((color) => [ `bg-${color.g1}`, `bg-${color.g2}`  ]),
   theme: {
     screens: {
       sm: '576px',
@@ -42,6 +44,10 @@ const config: Config = {
           700: '#323842',
           800: '#23272e',
           900: '#0c121c'
+        },
+        firstGradient : {
+          from : '#f2f4f7',
+          to : '#d2d5d9',
         },
         tableBg : '#E0E2E7'
       }

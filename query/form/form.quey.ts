@@ -9,3 +9,6 @@ export function getFormList(params : any){
   return Axios.get(`form/admin/list?${addQueryParams(params)}`)
 }
 
+export function getReport(id : string) {
+  return Axios.get(`/form-submissions/admin/list/${id}`)
+}

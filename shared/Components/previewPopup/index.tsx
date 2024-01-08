@@ -9,9 +9,11 @@ type PreviewType = {
   open: boolean
   handlePreview: Function
   fieldData: any
+  theme: any
 }
 
-export default function PreviewPopup({ open, handlePreview, fieldData }: PreviewType) {
+export default function PreviewPopup({ open, handlePreview, fieldData, theme }: PreviewType) {
+  console.log(fieldData, 'fieldData')
   const t = useI18n()
   const {
     control,
@@ -38,7 +40,7 @@ export default function PreviewPopup({ open, handlePreview, fieldData }: Preview
         </Transition.Child>
 
         <div className='fixed inset-0 w-full overflow-y-auto'>
-          <div className='flex min-h-full items-center justify-center p-4 text-center'>
+          <div className='flex min-h-full items-center justify-center p-4 text-center '>
             <Transition.Child
               as={Fragment}
               enter='ease-out duration-300'
@@ -48,11 +50,12 @@ export default function PreviewPopup({ open, handlePreview, fieldData }: Preview
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'
             >
-              <Dialog.Panel className='w-full max-w-[800px] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+              <Dialog.Panel className='w-full max-w-[800px] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all ' style={{ backgroundImage: `linear-gradient(to right, ${theme?.g1} , ${theme?.g2} )` }}>
                 <Dialog.Title as='h3' className='text-lg flex flex-col font-medium leading-6 text-gray-900 mb-4'>
                 {t('preview')}
                 </Dialog.Title>
                 <Divider />
+                <div className='bg-theme w-full h-full p-2 rounded-lg mt-2'>
                 {fieldData?.map((field: any, index : number) => {
                   return (
                     <div className='mt-4' key={index}>
@@ -60,6 +63,7 @@ export default function PreviewPopup({ open, handlePreview, fieldData }: Preview
                     </div>
                   )
                 })}
+                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>

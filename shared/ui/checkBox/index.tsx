@@ -1,4 +1,6 @@
+import { validationErrors } from '@/shared/constants/validationError'
 import { ChangeEvent, useEffect, useState } from 'react'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
 
 type Option = {
   sValue?: string
@@ -15,30 +17,48 @@ type CheckBoxTypes = {
   ref?: Function
   onChange?: (selectedOptions: Option[]) => void
   control?: any
+  name?: any
+  dynamicFormData?: any
+  reset?: Function
 }
 
-export default function CheckBox({ options, label, id, required, setValue, ref, onChange, control }: CheckBoxTypes) {
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([])
-
-  const handleCheckBoxChange = (event: ChangeEvent<HTMLInputElement>) => {
-    let value: any = {}
-    const checkboxValue: any = event.target.value
-    const isChecked = event.target.checked
-    value = { checkboxValue }
-
-    if (onChange) {
-      onChange(value)
+export default function CheckBox({ options, label, id, required, control, name }: CheckBoxTypes) {
+  const { control: innerControl ,watch} = useForm({
+    defaultValues: {
+      aOptions: options
     }
-  }
+  })
+
+  const { fields } = useFieldArray({
+    control: innerControl,
+    name: 'aOptions'
+  })
 
   return (
     <div className='flex flex-col '>
       <div className='text-secondary-500 '>{label}</div>
-      {options?.map((option) => {
+      {fields?.map((field: any, index: number) => {
         return (
-          <div key={option._id} className='flex items-center m-1'>
-            <input type='checkbox' id={option._id} value={option?.sValue} onChange={handleCheckBoxChange} />
-            <label className='ml-2 text-gray-700'>{option.sValue}</label>
+          <div key={field._id} className='flex items-center m-1'>
+            <Controller
+              name={`${name}.oOptions.${field._id}`}
+              control={control}
+              rules={{
+                ...(required && { required: validationErrors.required })
+              }}
+              render={({ field: { onChange, value, ref } }) => (
+                <input
+                  type='checkbox'
+                  ref={ref}
+                  onChange={(e) => onChange(e.target.checked ? field?.sValue : '')}
+                  id={field.sValue}
+                  name={field?.sValue}
+                  checked={fields.find(f => f.sValue === value)}
+                  value={value}
+                />
+              )}
+            />
+            <label className='ml-2 text-gray-700'>{field?.sValue}</label>
           </div>
         )
       })}

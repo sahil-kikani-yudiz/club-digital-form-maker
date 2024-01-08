@@ -31,5 +31,14 @@
   "signUp" : "Sign Up",
   "alreadyHaveAccount" : "Already Have an Account ??",
   "login" : "Login",
-  "dontHaveAccount" : "Don’t have an account??"
+  "dontHaveAccount" : "Don’t have an account??",
+  "sendOtp": "Send OTP",
+  "theme": "Theme",
+  "pleaseSelectTheme" : "Please Select Theme",
+  "editForm" : "Edit Form",
+  "userCard" : "User Card",
+  "downloadCsv" : "Download CSV",
+  "downloadSubmission" : "Download Submissions",
+  "download" : "Download",
+  "add" : "Add"
 } 

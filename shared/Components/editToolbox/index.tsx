@@ -12,6 +12,7 @@ import { useMutation } from '@tanstack/react-query'
 import { editFieldSettings } from '@/query/form/form.mutation'
 import { showToast } from '@/shared/ui/toaster'
 import { useI18n } from '@/locales/client'
+import useWindowSize from '@/shared/hooks/windowSize'
 
 type fieldSettingsType = {
   oSettings: any
@@ -42,6 +43,8 @@ export default function EditToolBox({ isOpen, fieldSettings, setIsOpen, onUpdate
   const t = useI18n()
   const [selectedTab, setSelectedTab] = useState('general')
   const [isActive, setIsActive] = useState<any | undefined>(false)
+
+  console.log(fieldSettings, 'fieldSettings')
 
   const {
     control,
@@ -99,9 +102,11 @@ export default function EditToolBox({ isOpen, fieldSettings, setIsOpen, onUpdate
       showToast('error', error?.message)
     }
   })
+  
+  const [width] = useWindowSize()
 
   return (
-    <Drawer isOpen={isOpen}>
+    <Drawer isOpen={isOpen} className={width > 767 ? 'p-2 border rounded-lg' : 'mt-2'}>
       <div>{t('properties')}</div>
       <Divider />
 
@@ -183,8 +188,7 @@ export default function EditToolBox({ isOpen, fieldSettings, setIsOpen, onUpdate
                 </div>
               )
             })}
-
-            <button className='w-full bg-primary-500 border rounded-md p-2 mt-2' onClick={() => append({ option: '' })}>
+            <button className='w-full bg-primary-500 border rounded-md p-2 mt-2' onClick={() => append({ })}>
               {t('addOptions')}
             </button>
           </Tab.Panel>

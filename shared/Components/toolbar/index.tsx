@@ -20,7 +20,7 @@ export default function Toolbar({ toolList }: any) {
   }
 
   return (
-    <aside className='lg:w-[337px] md:w-[200px]  flex flex-col max-w-[337px] mx-4 border rounded-lg bg-theme overflow-y-auto border-r p-2'>
+    <aside className='lg:w-[337px] md:w-[200px] w-full flex flex-col max-w-[337px] mx-4 border rounded-lg bg-theme overflow-y-auto border-r p-2'>
       {/* <div className='relative mb-4'>
         <div className='absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none'>
           <svg
@@ -53,7 +53,7 @@ export default function Toolbar({ toolList }: any) {
       {toolList?.map((item: any, index: number) => {
         return (
           <div key={index}>
-            <Accordion title={item?.sName} body={ToolListing(item?.aFields)} />
+            <Accordion title={item?.sName} body={ToolListing(item?.aFields)} defaultAccordion />
           </div>
         )
       })}

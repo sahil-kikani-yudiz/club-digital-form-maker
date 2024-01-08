@@ -1,3 +1,4 @@
+'use client'
 import { ReactNode, useState } from 'react'
 import CustomPagination from '@/shared/Components/customPagination'
 import CustomImage from '../customImage'
@@ -9,11 +10,11 @@ type dataTableTypes = {
   pagination?: any
   handlePageEvent?: any
   handleSearch?: any
+  columns?: any
+  action?: boolean
 }
 
-export default function DataTable({ children, nTotal, pagination, handlePageEvent, handleSearch }: dataTableTypes) {
-  const columns = [{ title: 'Form name' }, { title: 'Description' }, { title: 'CreatedAt' }, { title: 'Responses' }, { title: 'Actions' }]
-
+export default function DataTable({ children, nTotal, pagination, handlePageEvent, handleSearch, columns, action }: dataTableTypes) {
   const [value, setValue] = useState('')
 
   // const [selectedOption, setSelectedOption] = useState('')
@@ -56,10 +57,11 @@ export default function DataTable({ children, nTotal, pagination, handlePageEven
           <table className='w-full h-full text-left '>
             <thead className='text-xs text-secondary-500 h-[56px] uppercase bg-tableBg'>
               <tr>
-                {columns?.map((column, i) => {
+                {action && <th className='px-6 py-3'>Actions</th>}
+                {columns?.map((column: any, i: string) => {
                   return (
                     <th key={i} className='px-6 py-3'>
-                      {column.title}
+                      {column?.title}
                     </th>
                   )
                 })}
@@ -70,9 +72,9 @@ export default function DataTable({ children, nTotal, pagination, handlePageEven
         </div>
       </div>
       <CustomPagination
-        currentPage={pagination.currentPage}
+        currentPage={pagination?.currentPage}
         totalCount={nTotal}
-        pageSize={pagination.pageSize}
+        pageSize={pagination?.pageSize}
         onPageChange={handlePageEvent}
       />
     </>

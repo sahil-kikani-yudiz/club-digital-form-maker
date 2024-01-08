@@ -27,3 +27,11 @@ return Axios.put(`form/admin/delete-form/${id}`)
 export function grtDynamicFieldValue(data: any) {
   return Axios.post('form/admin/get-dynamic-field_val', data)
 }
+
+export function editTheme(data: any) {
+  return Axios.put('form/admin/edit-theme', data)
+}
+
+export function editForm(data: any) {
+return Axios.put('form/admin/edit-form', data)
+}

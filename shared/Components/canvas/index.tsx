@@ -24,6 +24,8 @@ import Loader from '@/shared/ui/loader'
 import { updateFieldPriority } from '@/query/form/form.mutation'
 import { useI18n } from '@/locales/client'
 import EditToolBox from '../editToolbox'
+import useWindowSize from '@/shared/hooks/windowSize'
+import MobileDrawer from '@/shared/ui/mobileDrawer'
 
 type settings = {
   iFieldId: string
@@ -43,20 +45,22 @@ type FieldData = {
 
 type PlaygroundType = {
   data: {
-    sName : string
+    sName: string
   }
   fieldData: FieldData[]
   loading: boolean
   setFieldData: Function
   id: string
+  fieldSettings: any
+  setFieldSettings: Function
 }
 
-export default function Canvas({ data, fieldData, loading, setFieldData, id }: PlaygroundType) {
+export default function Canvas({ data, fieldData, loading, setFieldData, setFieldSettings, fieldSettings, id }: PlaygroundType) {
   const t = useI18n()
-  const { isOver, setNodeRef } = useDroppable({ id: 'playground-container' })
-  const [fieldSettings, setFieldSettings] = useState()
 
+  const { isOver, setNodeRef } = useDroppable({ id: 'playground-container' })
   const [isOpen, setIsOpen] = useState(false)
+  const [width] = useWindowSize()
 
   function onUpdateSettings(settings: any) {
     setFieldData((prevFieldData: any) => {
@@ -89,7 +93,8 @@ export default function Canvas({ data, fieldData, loading, setFieldData, id }: P
 
   useEffect(() => {
     if (loading) {
-      setIsOpen(false)
+      setIsOpen(true)
+      // setFieldSettings(fieldData[fieldData?.length - 1]?.oSettings)
     }
   }, [loading])
 
@@ -144,9 +149,9 @@ export default function Canvas({ data, fieldData, loading, setFieldData, id }: P
 
   return (
     <>
+      {loading && <Loader />}
       <div className='flex-1 flex  relative justify-center items-center' ref={setNodeRef}>
-        <div className={`h-full border relative rounded-lg w-full bg-theme overflow-y-auto`}>
-          {loading && <Loader />}
+        <div className={`h-full border relative rounded-lg w-full bg-theme overflow-y-auto sm:pb-0 pb-14`}>
           {fieldData?.length > 0 ? (
             <DndContext sensors={sensors} onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
               <SortableContext items={fieldData?.map((field) => field?.oSettings?.iUniqueId)} strategy={verticalListSortingStrategy}>
@@ -157,13 +162,12 @@ export default function Canvas({ data, fieldData, loading, setFieldData, id }: P
                 ))}
               </SortableContext>
             </DndContext>
-          ) : 
-          <div className='border-2 border-dashed rounded-lg m-2 p-4 flex items-center justify-center flex-col'>
-          <CustomImage src={ArrowIcon} height={40} width={40} />
-          <div className='text-secondary-500 mt-2'>
-          {t('dragItems')}</div>
-        </div>
-        }
+          ) : (
+            <div className='border-2 border-dashed rounded-lg m-2 p-4 flex items-center justify-center flex-col'>
+              <CustomImage src={ArrowIcon} height={40} width={40} />
+              <div className='text-secondary-500 mt-2'>{t('dragItems')}</div>
+            </div>
+          )}
           <DragOverlay>
             <div
               style={{
@@ -190,7 +194,15 @@ export default function Canvas({ data, fieldData, loading, setFieldData, id }: P
           </div>
         )}
       </div>
-      <EditToolBox isOpen={isOpen} setIsOpen={setIsOpen} fieldSettings={fieldSettings} onUpdateSettings={onUpdateSettings} />
+
+      {width > 768 && (
+        <EditToolBox isOpen={isOpen} setIsOpen={setIsOpen} fieldSettings={fieldSettings} onUpdateSettings={onUpdateSettings} />
+      )}
+      {width <= 768 && (
+        <MobileDrawer isOpen={isOpen}>
+          <EditToolBox isOpen={isOpen} setIsOpen={setIsOpen} fieldSettings={fieldSettings} onUpdateSettings={onUpdateSettings} />
+        </MobileDrawer> 
+      )}
     </>
   )
 }

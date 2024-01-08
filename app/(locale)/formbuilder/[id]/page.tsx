@@ -10,7 +10,9 @@ type pageTypes = {
 
 type toolListTypes = {
   data: {
-    data: Array<object>
+    data: {
+      aResults: Array<object>
+    }
   }
 }
 
@@ -23,9 +25,11 @@ async function fetchData() {
 export default async function Page(props: pageTypes) {
   const toolList: toolListTypes = await fetchData()
 
+  console.log(toolList, 'toolList')
+
   return (
     <>
-      <FormEditor id={props?.params?.id} toolList={toolList?.data?.data} />
+      <FormEditor id={props?.params?.id} toolList={toolList?.data?.data?.aResults} />
     </>
   )
 }

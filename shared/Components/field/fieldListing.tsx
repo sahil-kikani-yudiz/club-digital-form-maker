@@ -26,6 +26,7 @@ export default function FieldListing({ field, onFieldEdit, onFieldDelete }: Fiel
     control,
     handleSubmit,
     register,
+    reset,
     formState: { errors }
   } = useForm()
 
@@ -59,8 +60,9 @@ export default function FieldListing({ field, onFieldEdit, onFieldDelete }: Fiel
         {...attributes}
         {...listeners}
       >
+        <div className='bg-theme'>
         <div className='h-fit min-h-[135px] p-2 relative '>
-          <FieldMaker field={field} register={register} errors={errors} control={control} />
+          <FieldMaker field={field} register={register} errors={errors} control={control} reset={reset}/>
           <div className='absolute top-0 left-0 h-full w-full cursor-move'></div>
         </div>
         <Divider />
@@ -87,6 +89,7 @@ export default function FieldListing({ field, onFieldEdit, onFieldDelete }: Fiel
                 <div className='mx-2'>{t('edit')}</div>
               </div>
             )}
+          </div>
           </div>
         </div>
       </div>

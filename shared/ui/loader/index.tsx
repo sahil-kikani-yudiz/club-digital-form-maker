@@ -1,7 +1,9 @@
 export default function Loader() {
   return (
-    <div className='fixed top-0 left-0 right-0 bottom-0 w-full h-full z-50 overflow-hidden bg-secondary-500 opacity-75 flex flex-col items-center justify-center'>
-      <div className='loader ease-linear rounded-full border-4 border-t-4 border-secondary-200 h-12 w-12 mb-4'></div>
+    <div className='justify-center items-center flex absolute top-0 left-0 z-50 h-full w-full gap-2'>
+      <div className='w-4 h-4 rounded-full bg-primary-500 animate-bounce [animation-delay:.7s]'></div>
+      <div className='w-4 h-4 rounded-full bg-primary-500 animate-bounce [animation-delay:.3s]'></div>
+      <div className='w-4 h-4 rounded-full bg-primary-500 animate-bounce [animation-delay:.7s]'></div>
     </div>
   )
 }

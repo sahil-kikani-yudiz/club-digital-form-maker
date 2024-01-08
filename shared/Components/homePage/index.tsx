@@ -29,10 +29,12 @@ export default function HomePage() {
     queryKey: ['getFormList', requestParams],
     queryFn: () => getFormList(requestParams),
     onSuccess: (data: any) => {
-      nTotal.current = data?.data?.nTotal
+      nTotal.current = data?.data?.data?.nTotal
     }
   })
-  const formData = data?.data
+  console.log(data, 'data')
+  const formData = data?.data?.data
+  console.log(formData, 'formData')
 
   const {
     register,
@@ -73,6 +75,8 @@ export default function HomePage() {
     setRequestParams({ ...requestParams, nSkip: page })
     appendParams({ nSkip: page })
   }
+
+  const columns = [{ title: 'Form name' },  { title: 'CreatedAt' }, { title: 'Responses' }, { title: 'Actions' }]
 
   return (
     <div className='bg-background w-screen h-[calc(100%-70px)] p-4'>
@@ -148,7 +152,7 @@ export default function HomePage() {
 
       <div className='bg-theme w-full h-[calc(100%-80px)] mt-4 rounded-lg border'>
         <div className='flex flex-col justify-center items-center h-full p-2'>
-          {nTotal.current === 0 ? (
+          {nTotal?.current === 0 && !requestParams?.sSearch  ? (
             <>
               <CustomImage src={FormIcon} height={50} width={50} className='mb-4' />
               <div className='text-secondary-500 text-lg'>{t('dontHaveAnyForms')}</div>
@@ -163,8 +167,9 @@ export default function HomePage() {
               pagination={{ currentPage: requestParams?.nSkip, pageSize: requestParams?.nLimit }}
               handlePageEvent={handlePageEvent}
               handleSearch={handleSearch}
+              columns={columns}
             >
-              {formData?.data?.map((form: any, i: number) => {
+              {formData?.aResults.map((form: any, i: number) => {
                 return <FormListing data={form} key={i} refetch={refetch} />
               })}
             </DataTable>
