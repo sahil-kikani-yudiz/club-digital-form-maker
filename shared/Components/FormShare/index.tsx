@@ -55,7 +55,7 @@ export default function FormSharePage({ id }: FormSharePage) {
                 <input
                   ref={linkRef}
                   type='text'
-                  value={`https://club-digital-form-maker.vercel.app/${id}`}
+                  value={`https://club-digital-form-maker.vercel.app/myform/${id}`}
                   readOnly
                   className='outline-none border-none w-full bg-primary-200 p-4 border rounded-lg'
                 />
