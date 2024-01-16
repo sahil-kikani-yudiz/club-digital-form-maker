@@ -2,7 +2,7 @@ import axios from 'axios'
 import { redirectToLogin } from './shared/utils'
 
 const Axios = axios.create({
-  baseURL: 'https://club-digi.lc.webdevprojects.cloud/api'
+  baseURL: 'https://16ee-103-156-142-125.ngrok-free.app/api'
 })
 
 Axios.interceptors.request.use((req) => {
