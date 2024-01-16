@@ -62,7 +62,7 @@ export default function FormForUser({ id }: FormForUser) {
   const mutation = useMutation({
     mutationFn: sendData,
     onSuccess: (data) => {
-      showToast('success', data?.data?.message)
+      showToast('success', data?.data?.sMessage)
       router.push(`/myform/${id}`)
     }
   })
@@ -94,7 +94,7 @@ export default function FormForUser({ id }: FormForUser) {
     onSuccess: (data) => {
       setIsOtp(true)
       showToast('success', data?.data?.sMessage)
-      autofill.mutate(autofillData)
+      
     },
     onError: (err: any) => {
       console.log(err)
@@ -107,6 +107,7 @@ export default function FormForUser({ id }: FormForUser) {
     onSuccess: (data) => {
       setIsOpen(false)
       showToast('success', data?.data?.sMessage)
+      autofill.mutate(autofillData)
     }
   })
 
