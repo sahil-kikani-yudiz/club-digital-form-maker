@@ -53,14 +53,14 @@ export default function CommonInput({
   const setRegister = register(name, applyValidation())
   return (
     <>
-    <div className='flex justify-start items-center'>
-      <label className='block mt-2 mb-2 text-sm font-medium text-secondary-500 '>{label}</label>
-      {required && <span className='text-red-500 '>*</span>}
+      <div className='flex justify-start items-center'>
+        <label className='block text-sm font-medium text-secondary-500 dark:text-secondary-200'>{label}</label>
+        {required && <span className='text-red-500 mx-1'>*</span>}
       </div>
       {type === 'textarea' ? (
         <>
           <textarea
-            className={`bg-background border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-background focus:border-theme block w-full p-2 ${className} `}
+            className={`bg-background   text-gray-900 text-sm rounded-lg dark:bg-dark-300 dark:text-theme focus:ring-background focus:border-theme block w-full p-2 ${className} `}
             placeholder={placeholder || ''}
             {...setRegister}
             onChange={(e) => {
@@ -77,7 +77,7 @@ export default function CommonInput({
       ) : (
         <>
           <input
-            className={`bg-background border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-background focus:border-theme block w-full p-2 mb-2 ${className} `}
+            className={`bg-background dark:bg-dark-300 dark:text-theme  text-gray-900 text-sm rounded-lg focus:ring-background focus:border-theme block w-full p-2 mb-2 ${className} `}
             placeholder={placeholder || ''}
             {...setRegister}
             onChange={(e) => {

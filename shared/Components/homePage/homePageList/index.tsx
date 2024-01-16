@@ -1,18 +1,19 @@
 import CustomImage from '@/shared/ui/customImage'
 import { formatDate } from '@/shared/utils'
 import Link from 'next/link'
-import EditIcon from '@/assets/icons/edit-icon.svg'
-import DeleteIcon from '@/assets/icons/delete-icon.svg'
+
 import { useMutation } from '@tanstack/react-query'
 import { deleteForm } from '@/query/form/form.mutation'
 import { showToast } from '@/shared/ui/toaster'
-import ReportIcon from '@/assets/icons/report-icon.svg'
+
+import { DeleteIcon, EditIcon, ReportIcon } from '@/assets/icons'
 
 type dataType = {
   sTitle: string
   sDescription: string
   dUpdatedAt: string
   sFormId: string
+  nSubmissions: string
 }
 
 type FormListing = {
@@ -37,27 +38,33 @@ export default function FormListing({ data, refetch }: FormListing) {
   }
 
   return (
-    <tr className='bg-white border-b  hover:bg-gray-50'>
+    <tr className='bg-white border-b dark:border-dark-200  hover:bg-gray-50 dark:bg-dark-100 dark:hover:bg-secondary-900 dark:text-theme'>
       <td className='px-6 py-[8px] '>{data?.sTitle}</td>
       {/* <td className='px-6 py-[8px] '>{data?.sDescription}</td> */}
       <td className='px-6 py-[8px] '>{formatDate(data?.dUpdatedAt)}</td>
-      <td className='px-6 py-[8px] '>150</td>
-      <td className='px-6 py-[8px] flex flex-shrink-0'>
-        <Link href={`/formbuilder/${data?.sFormId}`} className=''>
-          <div className='hover:bg-primary-300 rounded-[25%] h-fit w-fit p-2'>
-            <CustomImage src={EditIcon} height={20} width={20} />
-          </div>
-        </Link>
-        <button className=''>
-          <div onClick={() => handleDelete(data?.sFormId)} className='hover:bg-red-400 rounded-[25%] h-fit w-fit p-2'>
-            <CustomImage src={DeleteIcon} height={20} width={20} />
-          </div>
-        </button>
-        <Link href={`/report/${data?.sFormId}`} className=''>
-          <div className='hover:bg-secondary-400 rounded-[25%] h-fit w-fit p-2'>
-            <CustomImage src={ReportIcon} height={20} width={20} />
-          </div>
-        </Link>
+      <td className='px-6 py-[8px] '>{data?.nSubmissions}</td>
+      <td className='px-6 py-[8px]'>
+        <div className='flex flex-shrink-0'>
+          <Link href={`/formbuilder/${data?.sFormId}`} className='flex-shrink-0'>
+            <div className='hover:bg-primary-300 rounded-[25%] h-fit w-fit p-2 '>
+              <EditIcon />
+            </div>
+          </Link>
+          <button className='flex-shrink-0'>
+            <div
+              onClick={() => handleDelete(data?.sFormId)}
+              className='hover:bg-red-400 rounded-[25%] h-fit w-fit p-2 '
+            >
+              <DeleteIcon />
+            </div>
+          </button>
+          <Link href={`/report/${data?.sFormId}`} className='flex-shrink-0'>
+            <div className='hover:bg-secondary-400 rounded-[25%] h-fit w-fit p-2 '>
+              {/* <CustomImage src={ReportIcon} height={20} width={20} /> */}
+              <ReportIcon />
+            </div>
+          </Link>
+        </div>
       </td>
     </tr>
   )

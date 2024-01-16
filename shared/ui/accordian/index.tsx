@@ -21,9 +21,9 @@ function Accordion({ title, body, isOpen, defaultAccordion, onOpen, className = 
 
   return (
     <div className={`bg-card rounded-2xl ${className} `} onClick={handleOpen}>
-      <div className={'text-base mt-2 select-none cursor-pointer flex items-center justify-between z-10 text-secondary-500'}>
+      <div className={'text-base mt-2 select-none cursor-pointer flex items-center justify-between z-10 text-secondary-500 dark:text-secondary-400'}>
         {title}
-        <div className={`w-5 transition-all ${isActive ? 'rotate-180 mx-2' : ''}`}>
+        <div className={`w-5 transition-all dark:filter dark:invert ${isActive ? 'rotate-180 mx-2' : ''}`}>
           <CustomImage src={DownIcon} height={14} width={14} />
         </div>
       </div>

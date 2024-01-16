@@ -13,17 +13,14 @@ type RootLayoutProps = {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  
-
   return (
     <html lang='en' className='w-full h-full'>
       <body>
         <IntlProviderClient>
-         <ClientProvider>
+          <ClientProvider>
             <ToastContainer />
-           
             {children}
-            </ClientProvider>
+          </ClientProvider>
         </IntlProviderClient>
       </body>
     </html>

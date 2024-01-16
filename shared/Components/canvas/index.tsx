@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import {
   DndContext,
   DragEndEvent,
-  DragOverEvent,
   DragOverlay,
   MouseSensor,
   TouchSensor,
-  UniqueIdentifier,
   closestCorners,
   useDroppable,
   useSensor,
@@ -26,8 +24,9 @@ import { useI18n } from '@/locales/client'
 import EditToolBox from '../editToolbox'
 import useWindowSize from '@/shared/hooks/windowSize'
 import MobileDrawer from '@/shared/ui/mobileDrawer'
+import { s3Url } from '@/shared/constants'
 
-type settings = {
+interface settings {
   iFieldId: string
   iUniqueId: string
   nMaxLength: number
@@ -38,29 +37,87 @@ type settings = {
   aValue: Array<object>
 }
 
-type FieldData = {
+interface FieldData {
   oSettings: settings
+
   _id: string
 }
 
-type PlaygroundType = {
+interface PlaygroundType {
   data: {
     sName: string
+    sIcon: string
   }
-  fieldData: FieldData[]
+  fieldData: any
   loading: boolean
   setFieldData: Function
   id: string
   fieldSettings: any
   setFieldSettings: Function
+  newField?: boolean
 }
 
-export default function Canvas({ data, fieldData, loading, setFieldData, setFieldSettings, fieldSettings, id }: PlaygroundType) {
+export default function Canvas({ data, fieldData, loading, setFieldData, setFieldSettings, fieldSettings, id, newField }: PlaygroundType) {
   const t = useI18n()
-
   const { isOver, setNodeRef } = useDroppable({ id: 'playground-container' })
   const [isOpen, setIsOpen] = useState(false)
   const [width] = useWindowSize()
+  const scrollRef = useRef<any>(null)
+  const [selectedField, setSelectField] = useState<any>()
+
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 10
+    }
+  })
+
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 300,
+      tolerance: 5
+    }
+  })
+  const sensors = useSensors(mouseSensor, touchSensor)
+
+  // Update Priority
+  const mutation = useMutation({
+    mutationFn: updateFieldPriority
+  })
+
+  // scroll
+  const scrollToButton = () => {
+    if (scrollRef.current) {
+      scrollRef.current.style.scrollBehavior = 'smooth'
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight
+      setTimeout(() => {
+        if (scrollRef.current) {
+          scrollRef.current.style.scrollBehavior = 'auto'
+        }
+      }, 1000)
+    }
+  }
+
+  useEffect(() => {
+    if (loading) {
+      if (width > 768) {
+        setIsOpen(true)
+      }
+      setTimeout(() => {
+        if (width > 768) {
+          scrollToButton()
+        } else {
+          window.scrollTo(0, document.body.scrollHeight)
+        }
+      }, 200)
+    }
+  }, [loading])
+
+  useEffect(() => {
+    if(newField){ 
+      const id = fieldData?.[fieldData?.length - 1]?.oSettings?.iUniqueId
+      setSelectField(id)
+    }
+  }, [newField])
 
   function onUpdateSettings(settings: any) {
     setFieldData((prevFieldData: any) => {
@@ -91,38 +148,12 @@ export default function Canvas({ data, fieldData, loading, setFieldData, setFiel
     setIsOpen(true)
   }
 
-  useEffect(() => {
-    if (loading) {
-      setIsOpen(true)
-      // setFieldSettings(fieldData[fieldData?.length - 1]?.oSettings)
-    }
-  }, [loading])
-
-  const mouseSensor = useSensor(MouseSensor, {
-    activationConstraint: {
-      distance: 10
-    }
-  })
-
-  const touchSensor = useSensor(TouchSensor, {
-    activationConstraint: {
-      delay: 300,
-      tolerance: 5
-    }
-  })
-
-  const mutation = useMutation({
-    mutationFn: updateFieldPriority
-  })
-
-  const sensors = useSensors(mouseSensor, touchSensor)
-
   function handleDragEnd(event: DragEndEvent) {
     const active = event.active
     const over = event.over
     if (active?.id !== over?.id) {
-      const oldIndex = fieldData.findIndex((f) => f.oSettings?.iUniqueId === active?.id)
-      const newIndex = fieldData.findIndex((f) => f.oSettings?.iUniqueId === over?.id)
+      const oldIndex = fieldData.findIndex((f: any) => f.oSettings?.iUniqueId === active?.id)
+      const newIndex = fieldData.findIndex((f: any) => f.oSettings?.iUniqueId === over?.id)
       const updatedFieldData = arrayMove(fieldData, oldIndex, newIndex)
       setFieldData(updatedFieldData)
       handleUpdateData(updatedFieldData)
@@ -141,7 +172,7 @@ export default function Canvas({ data, fieldData, loading, setFieldData, setFiel
   }
 
   function onFieldDelete(id: string) {
-    const updatedFieldData = fieldData.filter((field) => field?.oSettings?.iUniqueId !== id)
+    const updatedFieldData = fieldData.filter((field: any) => field?.oSettings?.iUniqueId !== id)
     setFieldData(updatedFieldData)
     handleUpdateData(updatedFieldData)
     setIsOpen(false)
@@ -151,13 +182,17 @@ export default function Canvas({ data, fieldData, loading, setFieldData, setFiel
     <>
       {loading && <Loader />}
       <div className='flex-1 flex  relative justify-center items-center' ref={setNodeRef}>
-        <div className={`h-full border relative rounded-lg w-full bg-theme overflow-y-auto sm:pb-0 pb-14`}>
+        <div className={`h-full border relative rounded-lg w-full bg-theme dark:bg-dark-200  dark:border-dark-200 overflow-y-auto sm:p-2 pb-16 mx-4 md:mx-0`} ref={scrollRef}>
           {fieldData?.length > 0 ? (
             <DndContext sensors={sensors} onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
-              <SortableContext items={fieldData?.map((field) => field?.oSettings?.iUniqueId)} strategy={verticalListSortingStrategy}>
-                {fieldData?.map((field) => (
-                  <div key={field?.oSettings?.iUniqueId}>
-                    <FieldListing field={field} onFieldEdit={onFieldEdit} onFieldDelete={onFieldDelete} />
+              <SortableContext items={fieldData?.map((field: any) => field?.oSettings?.iUniqueId)} strategy={verticalListSortingStrategy}>
+                {fieldData?.map((field: any, i: number) => (
+                  <div
+                    key={field?.oSettings?.iUniqueId}
+                    className={`${i === fieldData?.length - 1 && newField ? 'animate-pulse' : ''}`}
+                    onClick={() => setSelectField(field?.oSettings?.iUniqueId)}
+                  >
+                    <FieldListing field={field} onFieldEdit={onFieldEdit} onFieldDelete={onFieldDelete} selectedField={selectedField} />
                   </div>
                 ))}
               </SortableContext>
@@ -168,6 +203,7 @@ export default function Canvas({ data, fieldData, loading, setFieldData, setFiel
               <div className='text-secondary-500 mt-2'>{t('dragItems')}</div>
             </div>
           )}
+
           <DragOverlay>
             <div
               style={{
@@ -178,30 +214,33 @@ export default function Canvas({ data, fieldData, loading, setFieldData, setFiel
                 zIndex: 1000
               }}
             >
-              <div
-                className={`h-12 w-[250px] border rounded-lg bg-theme mb-1 p-2 cursor-move gap-2 flex items-center  
-        `}
-              >
-                <CustomImage src={profile} height={20} width={20} />
+              <div className={`h-12 w-[250px] border rounded-lg bg-theme dark:bg-dark-300 dark:border-dark-300 mb-1 p-2 cursor-move gap-2 flex items-center`}>
+                <div className='dark:invert dark:filter'>
+                <CustomImage src={s3Url + data?.sIcon} height={20} width={20} />
+                </div>
                 <div className='text-center'>{data?.sName}</div>
               </div>
             </div>
           </DragOverlay>
         </div>
+
         {isOver && (
-          <div className='absolute top-0 left-0 w-full h-full bg-secondary-400 opacity-30 flex justify-center items-center'>
-            <div className='text-secondary-900 text-3xl '>{t('addNewField')}</div>
+          <div className='absolute top-0 left-0 w-full h-full bg-secondary-400 dark:bg-dark-100  opacity-30 flex justify-center items-center'>
+            <div className='text-secondary-900 dark:text-secondary-200 text-3xl '>{t('addNewField')}</div>
           </div>
         )}
       </div>
 
+      {/* Editor */}
       {width > 768 && (
         <EditToolBox isOpen={isOpen} setIsOpen={setIsOpen} fieldSettings={fieldSettings} onUpdateSettings={onUpdateSettings} />
       )}
+
+      {/* Mobile Editor */}
       {width <= 768 && (
         <MobileDrawer isOpen={isOpen}>
           <EditToolBox isOpen={isOpen} setIsOpen={setIsOpen} fieldSettings={fieldSettings} onUpdateSettings={onUpdateSettings} />
-        </MobileDrawer> 
+        </MobileDrawer>
       )}
     </>
   )

@@ -23,7 +23,7 @@ type CheckBoxTypes = {
 }
 
 export default function CheckBox({ options, label, id, required, control, name }: CheckBoxTypes) {
-  const { control: innerControl ,watch} = useForm({
+  const { control: innerControl, reset } = useForm({
     defaultValues: {
       aOptions: options
     }
@@ -34,9 +34,15 @@ export default function CheckBox({ options, label, id, required, control, name }
     name: 'aOptions'
   })
 
+  useEffect(() => {
+    reset({
+      aOptions: options
+    })
+  }, [options, reset])
+
   return (
     <div className='flex flex-col '>
-      <div className='text-secondary-500 '>{label}</div>
+      <div className='text-secondary-500 dark:text-theme'>{label}</div>
       {fields?.map((field: any, index: number) => {
         return (
           <div key={field._id} className='flex items-center m-1'>
@@ -53,12 +59,12 @@ export default function CheckBox({ options, label, id, required, control, name }
                   onChange={(e) => onChange(e.target.checked ? field?.sValue : '')}
                   id={field.sValue}
                   name={field?.sValue}
-                  checked={fields.find(f => f.sValue === value)}
+                  checked={fields.find((f) => f.sValue === value)}
                   value={value}
                 />
               )}
             />
-            <label className='ml-2 text-gray-700'>{field?.sValue}</label>
+            <label className='ml-2 text-gray-700 dark:text-theme'>{field?.sValue}</label>
           </div>
         )
       })}

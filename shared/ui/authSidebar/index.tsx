@@ -6,7 +6,7 @@ export default function AuthSidebar({ labels } : any) {
     <div className='hidden md:w-[479px] md:flex  h-full bg-primary-500  flex-col justify-center items-center text-center'>
       <div className='bg-theme h-[64px] w-fit p-7 flex justify-center items-center border rounded-lg text-3xl'>
         <span className='text-primary-500 mx-2'>{t('club')}</span>
-        <span>{t('community')}</span>
+        <span className="dark:text-secondary-900">{t('community')}</span>
       </div>
       <div className='text-white flex justify-center flex-col text-left text-3xl mt-12'>
         {labels?.map((label : string , i : number) => {

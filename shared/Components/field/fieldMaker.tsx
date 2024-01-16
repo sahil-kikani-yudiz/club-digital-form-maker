@@ -33,8 +33,6 @@ export default function FieldMaker({ field, register, errors, setValue, control,
   const minLength = field?.oSettings?.nMinLength
   const maxLength = field?.oSettings?.nMaxLength
 
-  console.log(field, 'field')
-
   return (
     <>
       {field?.oField?.oFieldType?.sType === 'select' && (

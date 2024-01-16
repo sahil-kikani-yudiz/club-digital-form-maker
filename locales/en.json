@@ -37,8 +37,11 @@
   "pleaseSelectTheme" : "Please Select Theme",
   "editForm" : "Edit Form",
   "userCard" : "User Card",
-  "downloadCsv" : "Download CSV",
+  "downloadReport" : "Download Report",
   "downloadSubmission" : "Download Submissions",
   "download" : "Download",
-  "add" : "Add"
+  "add" : "Add",
+  "yourReports" : "Your Reports",
+  "reports" : "Reports",
+  "selectFields" : "Select Fields"
 } 

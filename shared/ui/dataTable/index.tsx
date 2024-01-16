@@ -2,7 +2,8 @@
 import { ReactNode, useState } from 'react'
 import CustomPagination from '@/shared/Components/customPagination'
 import CustomImage from '../customImage'
-import SearchIcon from '@/assets/icons/search-icon.svg'
+import { SearchIcon } from '@/assets/icons'
+
 
 type dataTableTypes = {
   children?: ReactNode
@@ -38,14 +39,14 @@ export default function DataTable({ children, nTotal, pagination, handlePageEven
         </div> */}
 
         <div className='relative'>
-          <div className='absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none'>
-            <CustomImage src={SearchIcon} height={20} width={20} />
+          <div className='absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none dark:text-theme '>
+            <SearchIcon/>
           </div>
           <input
             type='search'
             id='default-search'
             value={value}
-            className='block w-full p-2 ps-10 text-md border rounded-lg bg-gray-5'
+            className='block w-full p-2 ps-10 text-md border rounded-lg dark:border-dark-200 dark:bg-dark-100 dark:text-theme'
             placeholder='Search Forms Here....'
             onChange={(e) => search(e.target.value)}
             required
@@ -53,9 +54,9 @@ export default function DataTable({ children, nTotal, pagination, handlePageEven
         </div>
       </div>
       <div className='w-full h-full overflow-y-auto p-4'>
-        <div className='relative shadow-md  w-full h-ful'>
+        <div className='relative shadow-md  w-full '>
           <table className='w-full h-full text-left '>
-            <thead className='text-xs text-secondary-500 h-[56px] uppercase bg-tableBg'>
+            <thead className='text-xs text-secondary-500 h-[56px] uppercase bg-tableBg dark:bg-dark-300 dark:text-secondary-400'>
               <tr>
                 {action && <th className='px-6 py-3'>Actions</th>}
                 {columns?.map((column: any, i: string) => {
@@ -67,7 +68,7 @@ export default function DataTable({ children, nTotal, pagination, handlePageEven
                 })}
               </tr>
             </thead>
-            <tbody className='bg-theme h-full'>{children}</tbody>
+            <tbody className='bg-theme dark:bg-dark-100 h-full'>{children}</tbody>
           </table>
         </div>
       </div>

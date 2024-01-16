@@ -3,16 +3,16 @@ import Link from 'next/link'
 import CustomButton from '../../ui/customButton'
 import CustomImage from '../../ui/customImage'
 import CustomLink from '../../ui/customLink'
-import LeftArrow from '@/assets/icons/left-arrow.svg'
-import PreviewIcon from '@/assets/icons/preview-icon.svg'
+
 import Divider from '../../ui/divider'
-import CopyIcon from '@/assets/icons/copy-icon.svg'
+
 import QrCode from '@/assets/images/qrcode.jpg'
 import DownloadIcon from '@/assets/icons/download-icon.svg'
 import { useRef } from 'react'
 import { showToast } from '../../ui/toaster'
 import { useQRCode } from 'next-qrcode'
 import { useI18n } from '@/locales/client'
+import { BackArrow, CopyIcon, PreviewIcon } from '@/assets/icons'
 
 type FormSharePage = {
   id: string
@@ -33,21 +33,22 @@ export default function FormSharePage({ id }: FormSharePage) {
   }
 
   return (
-    <div className='bg-background w-screen h-[calc(100%-70px)] p-4'>
-      <div className='bg-theme h-[66px] border rounded-lg items-center justify-between flex p-2'>
+    <div className='bg-background dark:bg-dark-100 w-screen h-[calc(100%-70px)] p-4'>
+      <div className='bg-theme dark:bg-dark-200 dark:border-dark-200 h-[66px] border rounded-lg items-center justify-between flex p-2'>
         <div className='flex   items-center'>
           <CustomLink href={`/formbuilder/${id}`}>
-            <CustomImage src={LeftArrow} height={22} width={22} />
+            <BackArrow />
           </CustomLink>
+
           <div className='text-base mx-2'>{t('myForm')}</div>
         </div>
       </div>
 
-      <div className='w-full h-[calc(100%-66px)] p-2 flex bg-theme border rounded-lg mt-3 justify-center'>
+      <div className='w-full h-[calc(100%-66px)] p-2 flex bg-theme dark:bg-dark-200 dark:border-dark-200 border rounded-lg mt-3 justify-center'>
         <div className='h-full  w-full justify-center flex flex-col items-center'>
           <div>{t('shareForm')}</div>
           <div className='h-full w-full md:w-[710px] p-2'>
-            <div className='w-full border rounded-lg h-fit p-4'>
+            <div className='w-full border rounded-lg h-fit p-4 dark:border-gray-500'>
               <div>{t('copyLinkToShare')}</div>
               <div className='text-sm text-gray-500 mb-2'>{t('downloadQr')}</div>
               <Divider />
@@ -57,15 +58,15 @@ export default function FormSharePage({ id }: FormSharePage) {
                   type='text'
                   value={`https://club-digital-form-maker.vercel.app/myform/${id}`}
                   readOnly
-                  className='outline-none border-none w-full bg-primary-200 p-4 border rounded-lg'
+                  className='outline-none border-none w-full bg-primary-200 dark:bg-dark-300 p-4 border rounded-lg'
                 />
 
-                <div className='flex gap-2 text-primary-500'>
+                <div className='flex gap-2 text-primary-500 dark:text-theme'>
                   <button
-                    className='flex bg-primary-200 items-center border rounded-lg hover:bg-secondary-200 justify-center p-4 mx-3 w-full'
+                    className='flex bg-primary-200 dark:bg-dark-300 items-center  rounded-lg hover:bg-secondary-200 justify-center p-4 mx-3 w-full'
                     onClick={handleCopyClick}
                   >
-                    <CustomImage src={CopyIcon} height={20} width={20} /> {t('copy')}
+                    <CopyIcon/><span className='mx-1'>{t('copy')}</span>
                   </button>
                 </div>
               </div>
@@ -73,7 +74,7 @@ export default function FormSharePage({ id }: FormSharePage) {
               <Divider />
 
               <Canvas
-                text={`http://192.168.10.101:3000/myform/${id}`}
+                text={`https://club-digital-form-maker.vercel.app/myform/${id}`}
                 options={{
                   errorCorrectionLevel: 'M',
                   margin: 5,

@@ -11,7 +11,7 @@ type DrawerTypes = {
 export default function MobileDrawer({ children, isOpen, toggle, className }: DrawerTypes) {
   return (
     <div
-      className={`fixed inset-y-0 right-0 max-w-xs w-full bg-white shadow-lg transform transition-transform ease-in-out duration-300 ${
+      className={`fixed inset-y-0 right-0 max-w-xs w-full bg-theme shadow-lg transform transition-transform ease-in-out duration-300 dark:bg-dark-200 ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
       }`}
     >

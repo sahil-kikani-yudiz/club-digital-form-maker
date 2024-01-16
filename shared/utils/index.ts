@@ -1,3 +1,8 @@
+// @ts-ignore
+import { Crypt } from 'hybrid-crypto-js'
+import { PUBLIC_KEY } from '../constants'
+import { redirect, useRouter } from 'next/navigation'
+
 export const addQueryParams = (value: any) => {
   const data = { ...value }
   Object.keys(data).forEach((e) => (data[e] === '' || typeof data[e] === 'object' || !data[e]?.toString().length) && delete data[e])
@@ -61,4 +66,18 @@ export function formatDate(date: string, separator = '-', reverseDate = false) {
   const d = new Date(date).toString().split(' ')
   const formatted = reverseDate ? [d[2], months[d[1]], d[3]].reverse() : [d[2], months[d[1]], d[3]]
   return date && formatted.join(separator)
+}
+
+export const bottomReached = ({ target }: any, early = 5) => {
+  return target.offsetHeight + target.scrollTop + early >= target.scrollHeight
+}
+
+export const encryption = (password: string) => {
+  const crypt = new Crypt()
+  const encrypted = crypt.encrypt(PUBLIC_KEY, password)
+  return encrypted.toString()
+}
+
+export function redirectToLogin() {
+  window.location.pathname = '/'  
 }

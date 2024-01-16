@@ -1,0 +1,16 @@
+export const s3Url = 'https://clubdizital-media.s3.ap-south-1.amazonaws.com/'
+
+export const PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA3u7DvSeU00+cziK89KYK
+7hbIKBeUzrhfNsjVDKV1lTnLLsbd/Quh1y0QQnwCZDvC3AGKnYf3nrlTJxng4xT+
+bQY14eM6nbrGTT80xW0CX75PjawRqGyt8x7jiHYtuiwZcoD2lKrGztPjw6qNPW8T
+ta75ZyBUuHVsl8qf1Xjv9zSLzn4T9FRamJI5+hiJPaho3mDS1gayeyptasilzaT3
+jBJqe6FvYZ2aIGla4+Chg3iednhkb40CIhgvGqo2B1enbgTGi8uuIJVVkC8aa2Ll
+X7km0e3ew4nibrXk2L2AmRIQy2jAcBbqY2Wm1USNUFcB7ui+4f8wVMBrGl3qvco8
+aIe8zJoCi6ykgPFm6pjRkgGYLWCjpmNk5wBykIskNG7dnSiH3z2Ulv1jkRxyUFVh
+IFTVh9zTIpe6A71FpNy3T9ZYv/em6/IBvYZnuEZjQykXCxs2BVBquc8C9PToi0UY
+xZNvq40kbtmfeFNljdX9T7vksEJZBmMHviqGHNYr6cfWAEeB4KEmp/TPBVEvVzgE
+cB2DAgmXAT1lIqm5cYo/ONP7rA3J1zjyUVkoXB40RFyK6crkZK90ofe09O0Ik9XT
+DV/6HD5uoagcEigiHINTG14Ph9GKQuRaoaFcXTOlxxrnvpDbF64SQnjzD6cIlY8a
+KThoq/UFys2WM5zuM6tIpwUCAwEAAQ==
+-----END PUBLIC KEY-----`

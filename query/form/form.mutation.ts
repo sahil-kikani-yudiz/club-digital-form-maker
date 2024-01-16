@@ -35,3 +35,23 @@ export function editTheme(data: any) {
 export function editForm(data: any) {
 return Axios.put('form/admin/edit-form', data)
 }
+
+export function generateReport(data : any) {
+  return Axios.post('form-submissions/admin/generate-report', data)
+}
+
+export function selectedSubmissionReport(data: any) {
+return Axios.post('/form-submissions/admin/generate-report', data)
+}
+
+export function deleteSubmission(id : any) { 
+return Axios.put('/form-submissions/admin/delete-sub', id)
+}
+
+export function sendOtp(number : any) {
+  return Axios.post('/form/admin/send-otp' , number)
+} 
+
+export function verifyOtp(data : any) {
+  return Axios.post('/form/admin/verifyOtp' , data)
+} 

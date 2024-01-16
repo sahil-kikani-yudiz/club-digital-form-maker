@@ -1,8 +1,8 @@
 import FormForUser from '@/shared/Components/formForUser'
 
-type pageType = {
-  params  : {
-    id : string
+interface pageType {
+  params: {
+    id: string
   }
 }
 

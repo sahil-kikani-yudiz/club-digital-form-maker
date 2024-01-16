@@ -17,8 +17,9 @@ import { appendParams } from '@/shared/utils'
 import FormListing from './homePageList'
 import { useI18n } from '@/locales/client'
 import Loader from '@/shared/ui/loader'
+import ProtectedRoute from '../protectedRoute'
 
-export default function HomePage() {
+ function HomePage() {
   const [requestParams, setRequestParams] = useState({ nSkip: 1, nLimit: 8, sSearch: '' })
   const t = useI18n()
   const router = useRouter()
@@ -32,9 +33,8 @@ export default function HomePage() {
       nTotal.current = data?.data?.data?.nTotal
     }
   })
-  console.log(data, 'data')
+
   const formData = data?.data?.data
-  console.log(formData, 'formData')
 
   const {
     register,
@@ -76,13 +76,13 @@ export default function HomePage() {
     appendParams({ nSkip: page })
   }
 
-  const columns = [{ title: 'Form name' },  { title: 'CreatedAt' }, { title: 'Responses' }, { title: 'Actions' }]
+  const columns = [{ title: 'Form name' }, { title: 'CreatedAt' }, { title: 'Responses' }, { title: 'Actions' }]
 
   return (
-    <div className='bg-background w-screen h-[calc(100%-70px)] p-4'>
+    <div className='bg-background dark:bg-dark-100 w-screen h-[calc(100%-70px)] p-4'>
       {isLoading && <Loader />}
-      <div className='bg-theme h-[66px] border rounded-lg items-center flex p-2'>
-        <button className='bg-primary-500 rounded-lg p-3 text-theme hover:bg-primary-400' onClick={() => setOpen(true)}>
+      <div className='bg-theme dark:bg-dark-200 h-[66px] rounded-lg items-center flex p-2'>
+        <button className='bg-primary-500 dark:bg-primary-700 rounded-lg p-3 text-theme hover:bg-primary-400' onClick={() => setOpen(true)}>
           {t('createForm')}
         </button>
       </div>
@@ -150,9 +150,9 @@ export default function HomePage() {
         </Dialog>
       </Transition>
 
-      <div className='bg-theme w-full h-[calc(100%-80px)] mt-4 rounded-lg border'>
+      <div className='bg-theme dark:bg-dark-200 dark:border-dark-200 w-full h-[calc(100%-80px)] mt-4 rounded-lg border'>
         <div className='flex flex-col justify-center items-center h-full p-2'>
-          {nTotal?.current === 0 && !requestParams?.sSearch  ? (
+          {nTotal?.current === 0 && !requestParams?.sSearch ? (
             <>
               <CustomImage src={FormIcon} height={50} width={50} className='mb-4' />
               <div className='text-secondary-500 text-lg'>{t('dontHaveAnyForms')}</div>
@@ -179,3 +179,5 @@ export default function HomePage() {
     </div>
   )
 }
+
+export default ProtectedRoute(HomePage)

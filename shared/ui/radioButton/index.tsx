@@ -1,4 +1,5 @@
 import { validationErrors } from '@/shared/constants/validationError'
+import { useEffect } from 'react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 
 type Option = {
@@ -21,7 +22,7 @@ type RadioButtonOptions = {
 }
 
 export default function RadioButton({ options, label, errors, id, required, register, name, control }: RadioButtonOptions) {
-  const { control: innerControl } = useForm({
+  const { control: innerControl, reset } = useForm({
     defaultValues: {
       aOptions: options
     }
@@ -31,11 +32,17 @@ export default function RadioButton({ options, label, errors, id, required, regi
     control: innerControl,
     name: 'aOptions'
   })
+
+  useEffect(() => {
+    reset({
+      aOptions: options
+    })
+  }, [options, reset])
   return (
     <>
       <div className='flex flex-col '>
         <div className='flex justify-start  items-center'>
-          <label className='text-secondary-500'>{label}</label>
+          <label className='text-secondary-500 dark:text-theme'>{label}</label>
           {required && <span className='text-red-500'>*</span>}
         </div>
         {fields?.map((field, i) => (
@@ -60,7 +67,7 @@ export default function RadioButton({ options, label, errors, id, required, regi
               )}
             />
 
-            <label className='ml-2 text-gray-700'>{field?.sValue}</label>
+            <label className='ml-2 text-gray-700 dark:text-theme'>{field?.sValue}</label>
           </div>
         ))}
       </div>

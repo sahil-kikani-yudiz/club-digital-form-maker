@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Image, { StaticImageData } from 'next/image'
 
 type CustomImageProps = {
-  src: string | StaticImageData
+  src: any | StaticImageData
   className?: string | undefined
   placeholderImage?: string | undefined
   height?: number | `${number}` | undefined
