@@ -30,6 +30,7 @@ export default function FormForUser({ id }: FormForUser) {
   const t = useI18n()
   const router = useRouter()
   const { setTheme } = useTheme()
+  const [ autofillData, setAutofillData] = useState<any>([])
 
   useEffect(() => {
     setTheme('light')
@@ -93,6 +94,7 @@ export default function FormForUser({ id }: FormForUser) {
     onSuccess: (data) => {
       setIsOtp(true)
       showToast('success', data?.data?.sMessage)
+      autofill.mutate(autofillData)
     },
     onError: (err: any) => {
       console.log(err)
@@ -116,7 +118,8 @@ export default function FormForUser({ id }: FormForUser) {
       }
     })
     const updateData = { aField: newData, sFormId: id, sMobileNo: data?.sMobileNo }
-    // autofill.mutate(updateData)
+    setAutofillData(updateData)
+    
     sendOtpMutation.mutate({ sMobileNo: 91 + data?.sMobileNo })
   }
 
@@ -146,7 +149,7 @@ export default function FormForUser({ id }: FormForUser) {
             <div>{formData?.sDescription}</div>
           </div>
 
-          <PopUp show={isOpen} onClose={() => setIsOpen(false)} maxWidth='500' title={`${isOtp ? 'fillForm' : 'enterYourNumber'}`}>
+          <PopUp show={isOpen} onClose={() => setIsOpen(true)} maxWidth='500' title={`${isOtp ? 'fillForm' : 'enterYourNumber'}`}>
             {isOtp ? (
               <div className='flex flex-col justify-center items-center'>
                 <OtpInput
