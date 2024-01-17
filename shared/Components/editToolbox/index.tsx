@@ -91,6 +91,7 @@ export default function EditToolBox({ isOpen, fieldSettings, setIsOpen, onUpdate
   }, [fieldSettings])
 
   function onSubmit(data: object) {
+    console.log(data, 'data')
     const settings = prepareData(data)
     
     mutation.mutate(settings)

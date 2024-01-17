@@ -5,7 +5,7 @@ import DownIcon from '@/assets/icons/down-icon.svg'
 type customPaginationTypes = {
   className?: string
   currentPage: number
-  totalCount: number
+  totalCount: number | 0
   pageSize: number
   onPageChange: Function
 }
@@ -35,18 +35,18 @@ export default function CustomPagination({ className, currentPage, totalCount, p
   if (paginationRange) lastPage = paginationRange[paginationRange?.length - 1]
   return (
     <div className='flex w-full  items-center flex-column flex-wrap md:flex-row justify-between p-7'>
-      <span className='text-sm font-normal text-gray-500 mb-4 md:mb-0 block w-full md:inline md:w-auto'>
-        Page <span className='font-semibold text-gray-900'>{currentPage}</span> of{' '}
-        <span className='font-semibold text-gray-900 '>{lastPage}</span>
+      <span className='text-sm font-normal text-gray-500 dark:text-secondary-200 mb-4 md:mb-0 block w-full md:inline md:w-auto'>
+        Page <span className='font-semibold text-gray-900 dark:text-theme'>{currentPage}</span> of{' '}
+        <span className='font-semibold text-gray-900 dark:text-theme'>{lastPage}</span>
       </span>
       <ul className='justify-center text-center items-center flex  h-8'>
         <li>
           <button
             onClick={onPrevious}
             disabled={currentPage === 1}
-            className='flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700'
+            className='flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-dark-300'
           >
-            <div className='w-5 transition-all rotate-90 mt-2'>
+            <div className='w-5 transition-all rotate-90 mt-2 dark:filter dark:invert'>
               <CustomImage src={DownIcon} height={14} width={14} />
             </div>
           </button>
@@ -57,8 +57,8 @@ export default function CustomPagination({ className, currentPage, totalCount, p
             <li key={index}>
               <button
                 onClick={() => onPageChange(page)}
-                className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${
-                  page === currentPage ? 'bg-primary-200' : 'bg-white'
+                className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-dark-300 dark:text-theme ${
+                  page === currentPage ? 'bg-primary-200 dark:bg-gray-600' : 'bg-white'
                 }`}
               >
                 {page}
@@ -71,9 +71,9 @@ export default function CustomPagination({ className, currentPage, totalCount, p
           <button
             disabled={currentPage === lastPage}
             onClick={onNext}
-            className='flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700'
+            className='flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-dark-300'
           >
-            <div className='w-5 transition-all rotate-[270deg] mb-1'>
+            <div className='w-5 transition-all rotate-[270deg] mb-1 dark:filter dark:invert'>
               <CustomImage src={DownIcon} height={14} width={14} />
             </div>
           </button>

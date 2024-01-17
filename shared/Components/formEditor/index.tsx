@@ -20,7 +20,6 @@ import Navbar from '../navbar'
 import Canvas from '../canvas'
 import PreviewPopup from '../previewPopup'
 import PopUp from '@/shared/ui/popup'
-import MobileFooter from '../../ui/mobileFooter'
 import MobileToolList from '../mobileToolList'
 import ProtectedRoute from '../protectedRoute'
 import EditorFooter from '../editorFooter'
@@ -87,9 +86,6 @@ function FormEditor({ id, toolList }: formEditorType) {
     mutationFn: attachField,
     onSuccess: (data) => {
       const newField = data?.data?.data
-      console.log('newField', newField)
-      console.log(fieldData, 'fieldData')
-
       setFieldData((prevFields = []) => [...prevFields, newField])
       setFieldSettings(newField)
       setNewField(true)
@@ -123,7 +119,6 @@ function FormEditor({ id, toolList }: formEditorType) {
 
     if (overContainerId === 'playground-container') {
       const fieldId = event.active.id
-      console.log(fieldId, 'fieldData')
       if (
         fieldData?.length > 0 &&
         fieldData?.some((field: any) => field?.oSettings?.iFieldId === fieldId && field?.oField?.eFormFieldType === 'dm')
@@ -171,7 +166,7 @@ function FormEditor({ id, toolList }: formEditorType) {
       {isLoading && <Loader />}
       <DndContext id='list' sensors={sensors} onDragEnd={onDragEnd} onDragStart={onDragStart}>
         <Navbar data={data?.data?.data} path={'/dashboard'} handlePreview={handlePreview} toggleTheme={toggleTheme} refetch={refetch} />
-        <div className='flex flex-col md:flex-row h-[calc(100%-184px)] bg-background dark:bg-dark-100' onClick={() => setToolbar(false)}>
+        <div className='flex flex-col md:flex-row h-[calc(100%-184px)]' onClick={() => setToolbar(false)}>
           {width > 768 && <Toolbar toolList={toolList} />}
 
           <Canvas
@@ -188,7 +183,7 @@ function FormEditor({ id, toolList }: formEditorType) {
 
         {/* mobile tool drawer */}
         {width <= 768 && (
-          <MobileDrawer isOpen={toolbar} toggle={handleToolbarToggle} className='p-2'>
+          <MobileDrawer isOpen={toolbar} toggle={handleToolbarToggle} className='p-2 h-[calc(100%-60px)]'>
             {toolList?.map((item: any, index: number) => {
               return (
                 <div key={index}>

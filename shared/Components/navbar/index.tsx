@@ -94,7 +94,7 @@ export default function Navbar({ data, path, handlePreview, toggleTheme, refetch
           {t('editForm')}
         </button>
       </PopUp>
-      <div className='p-4 bg-background dark:bg-dark-100'>
+      <div className='p-4'>
         <nav className='bg-theme dark:bg-dark-200 dark:border-dark-200 border flex rounded-lg h-[66px] justify-between px-[11px] py-[15px]'>
           <div className='flex items-center '>
             <CustomLink href={path}>

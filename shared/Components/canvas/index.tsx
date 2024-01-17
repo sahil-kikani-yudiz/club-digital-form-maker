@@ -113,7 +113,7 @@ export default function Canvas({ data, fieldData, loading, setFieldData, setFiel
   }, [loading])
 
   useEffect(() => {
-    if(newField){ 
+    if (newField) {
       const id = fieldData?.[fieldData?.length - 1]?.oSettings?.iUniqueId
       setSelectField(id)
     }
@@ -182,7 +182,10 @@ export default function Canvas({ data, fieldData, loading, setFieldData, setFiel
     <>
       {loading && <Loader />}
       <div className='flex-1 flex  relative justify-center items-center' ref={setNodeRef}>
-        <div className={`h-full border relative rounded-lg w-full bg-theme dark:bg-dark-200  dark:border-dark-200 overflow-y-auto sm:p-2 pb-16 mx-4 md:mx-0`} ref={scrollRef}>
+        <div
+          className={`h-full border relative rounded-lg w-full bg-theme dark:bg-dark-200  dark:border-dark-200 overflow-y-auto sm:p-2 pb-16 mx-4 md:mx-0`}
+          ref={scrollRef}
+        >
           {fieldData?.length > 0 ? (
             <DndContext sensors={sensors} onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
               <SortableContext items={fieldData?.map((field: any) => field?.oSettings?.iUniqueId)} strategy={verticalListSortingStrategy}>
@@ -200,7 +203,8 @@ export default function Canvas({ data, fieldData, loading, setFieldData, setFiel
           ) : (
             <div className='border-2 border-dashed rounded-lg m-2 p-4 flex items-center justify-center flex-col'>
               <CustomImage src={ArrowIcon} height={40} width={40} />
-              <div className='text-secondary-500 mt-2'>{t('dragItems')}</div>
+              
+              <div className='text-secondary-500 mt-2'>{ width > 768 ? t('dragItems') : 'Add Fields'}</div>
             </div>
           )}
 
@@ -214,9 +218,11 @@ export default function Canvas({ data, fieldData, loading, setFieldData, setFiel
                 zIndex: 1000
               }}
             >
-              <div className={`h-12 w-[250px] border rounded-lg bg-theme dark:bg-dark-300 dark:border-dark-300 mb-1 p-2 cursor-move gap-2 flex items-center`}>
+              <div
+                className={`h-12 w-[250px] border rounded-lg bg-theme dark:bg-dark-300 dark:border-dark-300 mb-1 p-2 cursor-move gap-2 flex items-center`}
+              >
                 <div className='dark:invert dark:filter'>
-                <CustomImage src={s3Url + data?.sIcon} height={20} width={20} />
+                  <CustomImage src={s3Url + data?.sIcon} height={20} width={20} />
                 </div>
                 <div className='text-center'>{data?.sName}</div>
               </div>

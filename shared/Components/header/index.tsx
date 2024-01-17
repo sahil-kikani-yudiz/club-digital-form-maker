@@ -47,7 +47,11 @@ export default function Header() {
             role='switch'
           />
           {/* <CustomImage src={ProfileIcon} height={40} width={40} /> */}
-          <div className='flex items-center justify-center cursor-pointer' onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+          <div
+            className='flex items-center justify-center cursor-pointer'
+            onMouseEnter={() => setIsOpen(true)}
+            onMouseLeave={() => setIsOpen(false)}
+          >
             <ProfileIcon />
             <div className='m-2'>{data?.data?.data?.sName}</div>
           </div>

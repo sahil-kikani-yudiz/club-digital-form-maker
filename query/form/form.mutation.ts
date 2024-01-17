@@ -1,10 +1,11 @@
 import Axios from '@/axios'
+import { attachField, createForm } from '@/shared/interface'
 
-export default function CreateForm(data: any) {
+export default function CreateForm(data: createForm) {
   return Axios.post('form/admin/add', data)
 }
 
-export function attachField(data: any) {
+export function attachField(data: attachField) {
   return Axios.post('form/admin/attach-field', data)
 }
 

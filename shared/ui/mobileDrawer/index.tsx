@@ -24,7 +24,9 @@ export default function MobileDrawer({ children, isOpen, toggle, className }: Dr
             X
           </div>
         )}
-        {children}
+        <div className="h-full pb-4 overflow-y-auto">
+          {children}
+        </div>
       </div>
     </div>
   )

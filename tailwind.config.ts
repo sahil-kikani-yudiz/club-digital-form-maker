@@ -14,7 +14,8 @@ const config: Config = {
   safelist: [
     'max-w-[500px]',
     'max-w-[1150px]',
-    'max-w-[1200px]'
+    'max-w-[1200px]',
+    'max-w-[1400px]',
    ],  
   darkMode: ["class"],
   theme: {

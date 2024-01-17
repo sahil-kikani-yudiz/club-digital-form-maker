@@ -1,23 +1,21 @@
 'use client'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
-import { Fragment, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Dialog, Transition } from '@headlessui/react'
 import OtpInput from 'react18-input-otp'
+import { useTheme } from 'next-themes'
 
 import { getFormById } from '@/query/form/form.quey'
+import { grtDynamicFieldValue, sendData, sendOtp, verifyOtp } from '@/query/form/form.mutation'
+
+import { validationErrors } from '@/shared/constants/validationError'
 import FieldMaker from '@/shared/Components/field/fieldMaker'
 import CommonInput from '@/shared/ui/commonInput'
-import { grtDynamicFieldValue, sendData, sendOtp, verifyOtp } from '@/query/form/form.mutation'
 import { showToast } from '@/shared/ui/toaster'
 import Divider from '@/shared/ui/divider'
-import { useI18n } from '@/locales/client'
-import { validationErrors } from '@/shared/constants/validationError'
-import Loader from '@/shared/ui/loader'
-import FormLoader from '@/shared/ui/formLoader'
 import PopUp from '@/shared/ui/popup'
-import { useTheme } from 'next-themes'
+import { useI18n } from '@/locales/client'
 
 type FormForUser = {
   id: string
@@ -30,7 +28,7 @@ export default function FormForUser({ id }: FormForUser) {
   const t = useI18n()
   const router = useRouter()
   const { setTheme } = useTheme()
-  const [ autofillData, setAutofillData] = useState<any>([])
+  const [autofillData, setAutofillData] = useState<any>([])
 
   useEffect(() => {
     setTheme('light')
@@ -81,12 +79,8 @@ export default function FormForUser({ id }: FormForUser) {
     const makeData = data
     const number = getValues('sMobileNo')
     makeData.sFormId = id
-    makeData.sMobileNo = number
+    makeData.sMobileNo = 91 + number
     mutation.mutate(makeData)
-  }
-
-  function closeModal() {
-    setIsOpen(false)
   }
 
   const sendOtpMutation = useMutation({
@@ -94,10 +88,8 @@ export default function FormForUser({ id }: FormForUser) {
     onSuccess: (data) => {
       setIsOtp(true)
       showToast('success', data?.data?.sMessage)
-      
     },
     onError: (err: any) => {
-      console.log(err)
       showToast('error', err?.response?.data?.error?.sMessage)
     }
   })
@@ -120,7 +112,7 @@ export default function FormForUser({ id }: FormForUser) {
     })
     const updateData = { aField: newData, sFormId: id, sMobileNo: data?.sMobileNo }
     setAutofillData(updateData)
-    
+
     sendOtpMutation.mutate({ sMobileNo: 91 + data?.sMobileNo })
   }
 

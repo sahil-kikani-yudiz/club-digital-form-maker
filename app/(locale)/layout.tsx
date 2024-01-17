@@ -15,7 +15,7 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang='en' className='w-full h-full'>
-      <body>
+      <body className='bg-background dark:bg-dark-100'>
         <IntlProviderClient>
           <ClientProvider>
             <ToastContainer />

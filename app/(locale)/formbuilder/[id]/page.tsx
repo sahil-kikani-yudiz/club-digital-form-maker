@@ -1,8 +1,6 @@
 import { getToolList } from '@/query/toolbar/toolbar.query'
 import FormEditor from '@/shared/Components/formEditor'
 
-
-
 interface pageTypes {
   params: {
     id: string

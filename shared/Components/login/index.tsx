@@ -39,7 +39,7 @@ export default function LoginPage() {
     mutation.mutate({ sEmail: data?.sEmail, sPassword: password })
   }
   return (
-    <div className='flex h-full w-full'>
+    <div className='flex h-full w-full bg-theme dark:bg-dark-100'>
       <AuthSidebar labels={['Welcome back! It’s Great', 'to see you again']} />
       <div className='w-full h-full flex flex-col justify-center items-center text-left'>
         <div className='md:w-[562px] w-full h-fit p-4 '>

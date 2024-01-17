@@ -1,7 +1,7 @@
 'use client'
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
@@ -18,8 +18,10 @@ import FormListing from './homePageList'
 import { useI18n } from '@/locales/client'
 import Loader from '@/shared/ui/loader'
 import ProtectedRoute from '../protectedRoute'
+import PopUp from '@/shared/ui/popup'
+import { createForm } from '@/shared/interface'
 
- function HomePage() {
+function HomePage() {
   const [requestParams, setRequestParams] = useState({ nSkip: 1, nLimit: 8, sSearch: '' })
   const t = useI18n()
   const router = useRouter()
@@ -41,10 +43,10 @@ import ProtectedRoute from '../protectedRoute'
     handleSubmit,
     formState: { errors },
     reset
-  } = useForm()
+  } = useForm<createForm>()
 
   function closeModal() {
-    setOpen(!open)
+    setOpen(false)
     reset({
       sTitle: '',
       sDescription: ''
@@ -62,7 +64,7 @@ import ProtectedRoute from '../protectedRoute'
     }
   })
 
-  function onSubmit(data: any) {
+  function onSubmit(data: createForm) {
     mutation.mutate(data)
   }
 
@@ -87,68 +89,32 @@ import ProtectedRoute from '../protectedRoute'
         </button>
       </div>
 
-      <Transition appear show={open}>
-        <Dialog as='div' className='relative z-10' onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter='ease-out duration-300'
-            enterFrom='opacity-0'
-            enterTo='opacity-100'
-            leave='ease-in duration-200'
-            leaveFrom='opacity-100'
-            leaveTo='opacity-0'
-          >
-            <div className='fixed inset-0 bg-black/25 ' />
-          </Transition.Child>
-          <div className='fixed inset-0 overflow-y-auto'>
-            <div className='flex min-h-full items-center justify-center p-4 text-center'>
-              <Transition.Child
-                as={Fragment}
-                enter='ease-out duration-300'
-                enterFrom='opacity-0 scale-95'
-                enterTo='opacity-100 scale-100'
-                leave='ease-in duration-200'
-                leaveFrom='opacity-100 scale-100'
-                leaveTo='opacity-0 scale-95'
-              >
-                <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
-                  <Dialog.Title as='h3' className='text-lg flex flex-col font-medium leading-6 text-gray-900'>
-                    {t('createForm')}
-                    <span className='text-secondary-500 text-sm mb-2'>{t('startFromScratch')}</span>
-                  </Dialog.Title>
+      <PopUp show={open} onClose={closeModal} title='createForm' maxWidth='500'>
+        <CommonInput
+          label='Form Title'
+          type='text'
+          className='text-lg mt-2'
+          register={register}
+          name='sTitle'
+          placeholder='Form title'
+          errors={errors}
+          required
+        />
+        <CommonInput
+          label='Description'
+          type='textarea'
+          errors={errors}
+          className='text-lg mt-2'
+          register={register}
+          name='sDescription'
+          placeholder='Description'
+          required
+        />
 
-                  <Divider />
-
-                  <CommonInput
-                    label='Form Title'
-                    type='text'
-                    className='text-lg mt-2'
-                    register={register}
-                    name='sTitle'
-                    placeholder='Form title'
-                    errors={errors}
-                    required
-                  />
-                  <CommonInput
-                    label='Description'
-                    type='textarea'
-                    errors={errors}
-                    className='text-lg mt-2'
-                    register={register}
-                    name='sDescription'
-                    placeholder='Description'
-                    required
-                  />
-
-                  <button className='bg-primary-500 rounded-lg p-2 mt-4 text-theme hover:bg-primary-400' onClick={handleSubmit(onSubmit)}>
-                    {t('createForm')}
-                  </button>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
+        <button className='bg-primary-500 rounded-lg p-2 mt-4 text-theme hover:bg-primary-400' onClick={handleSubmit(onSubmit)}>
+          {t('createForm')}
+        </button>
+      </PopUp>
 
       <div className='bg-theme dark:bg-dark-200 dark:border-dark-200 w-full h-[calc(100%-80px)] mt-4 rounded-lg border'>
         <div className='flex flex-col justify-center items-center h-full p-2'>

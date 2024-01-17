@@ -1,10 +1,7 @@
+import { useForm } from 'react-hook-form'
 import { useI18n } from '@/locales/client'
 import FieldMaker from '@/shared/Components/field/fieldMaker'
-import Divider from '@/shared/ui/divider'
 import PopUp from '@/shared/ui/popup'
-import { Dialog, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
-import { useForm } from 'react-hook-form'
 
 type PreviewType = {
   open: boolean
@@ -17,10 +14,8 @@ export default function PreviewPopup({ open, handlePreview, fieldData, theme }: 
   const t = useI18n()
   const {
     control,
-    handleSubmit,
     register,
     setValue,
-    reset,
     formState: { errors }
   } = useForm()
 
@@ -29,10 +24,10 @@ export default function PreviewPopup({ open, handlePreview, fieldData, theme }: 
       show={open}
       onClose={handlePreview}
       maxWidth='1400'
-      style={{ backgroundImage: `linear-gradient(to right, ${theme?.g1} , ${theme?.g2} )` }}
+      style={{ backgroundImage: `linear-gradient(to right, ${theme?.g1} , ${theme?.g2} )` , backgroundColor: '#F4F4F4'}}
     >
       <div className='bg-theme dark:bg-secondary-700 w-full h-full rounded-lg mt-2'>
-        <div className={`h-[100px] w-full bg-[${theme?.g1}] rounded-t-lg p-4 text-2xl text-theme`} style={{ backgroundColor: theme?.g1 }}>
+        <div className={`h-[100px] w-full bg-gray-500 rounded-t-lg p-4 text-2xl text-theme`}>
           {t('preview')}
         </div>
         <div className='p-4'>

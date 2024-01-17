@@ -1,13 +1,12 @@
 'use client'
 import { ReactNode, useState } from 'react'
 import CustomPagination from '@/shared/Components/customPagination'
-import CustomImage from '../customImage'
 import { SearchIcon } from '@/assets/icons'
 
 
 type dataTableTypes = {
   children?: ReactNode
-  nTotal?: any
+  nTotal?: any,
   pagination?: any
   handlePageEvent?: any
   handleSearch?: any
@@ -17,14 +16,6 @@ type dataTableTypes = {
 
 export default function DataTable({ children, nTotal, pagination, handlePageEvent, handleSearch, columns, action }: dataTableTypes) {
   const [value, setValue] = useState('')
-
-  // const [selectedOption, setSelectedOption] = useState('')
-
-  // const handleSelectChange = (e: any) => {
-  //   setSelectedOption(e.target.value)
-  // }
-
-  // const options = [{ sValue: 'All Form', isSelected: true }, { sValue: 'Draft' }, { sValue: 'Delete' }]
 
   function search(value: string) {
     setValue(value)
