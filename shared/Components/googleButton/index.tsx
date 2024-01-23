@@ -1,7 +1,8 @@
 'use client'
 import { googleLogin } from '@/query/login/mutation'
 import { useMutation } from '@tanstack/react-query'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
+
 import { useEffect } from 'react'
 
 declare global {

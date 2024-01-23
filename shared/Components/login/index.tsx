@@ -109,8 +109,8 @@ export default function LoginPage() {
           <div className='overflow-hidden flex flex-col w-full justify-center items-start'>
             <div className=' text-secondary-900 text-4xl'>Effortlessly craft polished online forms, </div>
             <div className=' text-secondary-900 text-4xl'>surveys, and streamlined workflows!</div>
-            <button onClick={() => router.push('/login')} className='w-fit px-6 py-3 bg-primary-500 text-theme rounded-lg mt-4'>Free Trial</button>
-            {/* <GoogleSignIn className='mt-4'/> */}
+            {/* <button onClick={() => router.push('/login')} className='w-fit px-6 py-3 bg-primary-500 text-theme rounded-lg mt-4'>Free Trial</button> */}
+            <GoogleSignIn className='mt-4'/>
           </div>
         </div>
 
