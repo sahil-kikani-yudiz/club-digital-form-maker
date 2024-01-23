@@ -2,7 +2,7 @@ import axios from 'axios'
 import { redirectToLogin } from './shared/utils'
 
 const Axios = axios.create({
-  baseURL: 'https://faba-103-156-142-125.ngrok-free.app/'
+  baseURL: 'https://faba-103-156-142-125.ngrok-free.app/api'
 })
 
 Axios.interceptors.request.use((req) => {
