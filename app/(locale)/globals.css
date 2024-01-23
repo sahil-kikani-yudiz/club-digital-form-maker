@@ -25,3 +25,84 @@ body {
   outline: none;
   background-color: transparent;
 }
+
+
+homeSvg svg#freepik_stories-data-extraction.animated #freepik--Screen--inject-2 {
+  animation: 1.5s Infinite linear floating;
+  animation-delay: 0s;
+}
+@keyframes floating {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+ }
+  50% {
+    transform: translateY(-10px);
+ }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+ }
+}
+.homeSvg svg#freepik_stories-forms:not(.animated) .animable {
+  opacity: 0;
+}
+.homeSvg svg#freepik_stories-forms.animated #freepik--Screen--inject-18 .animable {
+  animation: 1s 1 forwards cubic-bezier(0.36, -0.01, 0.5, 1.38) slideDown;
+  animation-delay: 0s;
+}
+.homeSvg svg#freepik_stories-forms.animated #freepik--Clipboard--inject-18 {
+  animation: 1.5s Infinite linear floating;
+  animation-delay: 0s;
+}
+.homeSvg svg#freepik_stories-forms.animated #freepik--Character--inject-18 {
+  animation: 1s 1 forwards cubic-bezier(0.36, -0.01, 0.5, 1.38) slideUp;
+  animation-delay: 0s;
+}
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+ }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+ }
+}
+@keyframes floating {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+ }
+  50% {
+    transform: translateY(-10px);
+ }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+ }
+}
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+ }
+  100% {
+    opacity: 1;
+    transform: inherit;
+ }
+}
+
+
+.slider-text {
+  animation: slideRight 5s ease-in;
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

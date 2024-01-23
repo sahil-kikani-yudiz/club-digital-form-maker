@@ -43,7 +43,7 @@ export default function PopUp({ show, onClose, children, title, maxWidth, style,
               <Dialog.Panel
                 className={`w-full ${
                   maxWidth ? `max-w-[${maxWidth}px]` : ''
-                } transform overflow-hidden rounded-2xl bg-theme dark:bg-gray-700   p-6 text-left align-middle shadow-xl transition-all`}
+                } transform overflow-hidden rounded-2xl bg-theme dark:bg-dark-200   p-6 text-left align-middle shadow-xl transition-all`}
                 style={style}
               >
                 <div className='flex w-full justify-between items-center mb-2'>

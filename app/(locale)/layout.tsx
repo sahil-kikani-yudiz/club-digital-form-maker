@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify'
 import IntlProviderClient from '@/shared/Components/intl-provider'
 import ClientProvider from '@/shared/Components/clientProvider'
 
+
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
 

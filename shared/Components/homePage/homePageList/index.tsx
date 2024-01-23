@@ -38,7 +38,7 @@ export default function FormListing({ data, refetch }: FormListing) {
   }
 
   return (
-    <tr className='bg-white border-b dark:border-dark-200  hover:bg-gray-50 dark:bg-dark-100 dark:hover:bg-secondary-900 dark:text-theme'>
+    <tr className='bg-white border-b dark:border-dark-200  hover:bg-gray-50 dark:bg-dark-100 dark:hover:bg-dark-200 dark:text-theme'>
       <td className='px-6 py-[8px] '>{data?.sTitle}</td>
       {/* <td className='px-6 py-[8px] '>{data?.sDescription}</td> */}
       <td className='px-6 py-[8px] '>{formatDate(data?.dUpdatedAt)}</td>

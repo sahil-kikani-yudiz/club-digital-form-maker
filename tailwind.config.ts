@@ -16,6 +16,11 @@ const config: Config = {
     'max-w-[1150px]',
     'max-w-[1200px]',
     'max-w-[1400px]',
+    'bg-orange-700',
+    'bg-primary-400',
+    'bg-teal-500',
+    'bg-yellow-500',
+    'bg-violet-500'
    ],  
   darkMode: ["class"],
   theme: {

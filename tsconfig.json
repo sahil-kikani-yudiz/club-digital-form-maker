@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "shared/Components/homePageSvg/index.js", "shared/Components/homePageSvg/svg2/index.jsx"],
   "exclude": ["node_modules"]
 }

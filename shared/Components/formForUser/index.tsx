@@ -110,7 +110,7 @@ export default function FormForUser({ id }: FormForUser) {
         iFieldId: field?.oSettings?.iFieldId
       }
     })
-    const updateData = { aField: newData, sFormId: id, sMobileNo: data?.sMobileNo }
+    const updateData = { aField: newData, sFormId: id, sMobileNo: 91 + data?.sMobileNo }
     setAutofillData(updateData)
 
     sendOtpMutation.mutate({ sMobileNo: 91 + data?.sMobileNo })

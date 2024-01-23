@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { usePathname } from 'next/navigation'
 import Header from '../header'
 import { ThemeProvider } from 'next-themes'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 
 type clientProviderTypes = {
   children: React.ReactNode
@@ -22,7 +23,7 @@ export default function ClientProvider({ children }: clientProviderTypes) {
   return (
     <ThemeProvider attribute='class'>
       <QueryClientProvider client={queryClient}>
-        {!pathname?.includes('myform') && pathname !== '/'  && <Header />}
+        {!pathname?.includes('myform') && pathname !== '/login' && pathname !== '/' && <Header />}
         {children}
       </QueryClientProvider>
     </ThemeProvider>
