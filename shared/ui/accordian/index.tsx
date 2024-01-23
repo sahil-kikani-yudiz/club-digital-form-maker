@@ -32,7 +32,7 @@ function Accordion({ title, body, isOpen, defaultAccordion, onOpen, className = 
         className={
           isActive ? 'transition-all  rounded-b-2xl py-4 opacity-1' : 'transition-all  overflow-hidden h-0 max-h-0 z-0 animate-close'
         }
-      >
+        >
         {body}
       </div>
     </div>

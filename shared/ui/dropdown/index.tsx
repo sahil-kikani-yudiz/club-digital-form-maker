@@ -55,7 +55,7 @@ export default function Dropdown({ options, className, onChange, ref, errors, la
                 </span>
               </Listbox.Button>
               <Transition as={Fragment} leave='transition ease-in duration-100' leaveFrom='opacity-100' leaveTo='opacity-0'>
-                <Listbox.Options className='absolute mt-1 max-h-60 w-full overflow-auto rounded-lg bg-secondary-200 py-1 text-base shadow-lg focus:outline-none sm:text-sm dark:bg-dark-300'>
+                <Listbox.Options className='absolute mt-1 max-h-60 w-full overflow-auto rounded-lg bg-secondary-200 py-1 text-base shadow-lg focus:outline-none sm:text-sm dark:bg-dark-300 z-40'>
                   {options?.map((option, optionIdx) => (
                     <Listbox.Option
                       key={optionIdx}

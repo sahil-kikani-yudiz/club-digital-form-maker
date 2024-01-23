@@ -37,25 +37,18 @@ export default function FieldMaker({ field, register, errors, setValue, control,
     <>
       {field?.oField?.oFieldType?.sType === 'select' && (
         <>
-          <Controller
-            name={`oAnswers.${field?.oSettings?.iUniqueId}`}
-            control={control}
-            rules={field?.oSettings?.bIsRequired ? { required: validationErrors.required } : {}}
-            render={({ field: { onChange, value = [] } }) => (
               <Dropdown
                 label={field?.oSettings?.sLabel}
                 options={field?.oSettings?.aOptions}
                 className='mt-2 '
                 required={field?.oSettings?.bIsRequired}
-                value={value}
+                // value={value}
                 control={control}
                 name={`oAnswers.${field?.oSettings?.iUniqueId}`}
-                onChange={(selectedOption) => onChange(selectedOption?.sValue)}
+                // onChange={(selectedOption) => onChange(selectedOption?.sValue)}
                 errors={errors}
                 id={field?.oSettings?.iUniqueId}
               />
-            )}
-          />
         </>
       )}
       {field?.oField?.oFieldType?.sType === 'radio' && (

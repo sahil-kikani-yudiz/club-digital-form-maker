@@ -1,4 +1,7 @@
 'use client'
+import { googleLogin } from '@/query/login/mutation'
+import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 declare global {
@@ -8,13 +11,25 @@ declare global {
 }
 
 export default function GoogleSignIn({ ...props }) {
+  const router = useRouter()
+
+  const mutation = useMutation({
+    mutationFn: googleLogin,
+    onSuccess: (data: any) => {
+      localStorage.setItem('token', data?.data?.data?.sToken)
+      router.push('/dashboard')
+    }
+  })
+
   function setupGoogleLogin() {
     const { google } = window
     if (google) {
-      console.log(google.accounts, )
+      console.log(google.accounts)
       google.accounts.id.initialize({
         client_id: '129082485861-54j76vgc3ltheumjqu36m0cp4rvajoha.apps.googleusercontent.com',
-        callback: async (response) => console.log(response)
+        callback: async (response) => {
+          mutation.mutate({ sSocialToken : response?.credential , sSocialType : 'G' })
+        }
       })
       google.accounts.id.renderButton(document.getElementById('google-sign-btn'), {
         shape: 'rectangular',
@@ -38,7 +53,5 @@ export default function GoogleSignIn({ ...props }) {
       }
     }
   }, [])
-  return (
-    <div id='google-sign-btn' {...props}></div>
-  )
+  return <div id='google-sign-btn' {...props}></div>
 }

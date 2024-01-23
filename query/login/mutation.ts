@@ -8,3 +8,7 @@ export function login(data: any) {
 export function logout() {
   return Axios.post('/v1/admin/logout')
 }
+
+export function googleLogin(data: any) {
+  return Axios.post('/v1/admin/register', data)
+}

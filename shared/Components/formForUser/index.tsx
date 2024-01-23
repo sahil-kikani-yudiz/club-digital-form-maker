@@ -100,6 +100,7 @@ export default function FormForUser({ id }: FormForUser) {
       setIsOpen(false)
       showToast('success', data?.data?.sMessage)
       autofill.mutate(autofillData)
+      localStorage.setItem('token', data?.data?.data?.sToken)
     }
   })
 

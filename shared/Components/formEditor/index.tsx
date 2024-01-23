@@ -23,6 +23,7 @@ import PopUp from '@/shared/ui/popup'
 import MobileToolList from '../mobileToolList'
 import ProtectedRoute from '../protectedRoute'
 import EditorFooter from '../editorFooter'
+import ProgressStepper from '../progressStepper'
 
 type formEditorType = {
   id: string

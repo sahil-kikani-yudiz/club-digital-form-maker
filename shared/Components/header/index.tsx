@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation'
 export default function Header() {
   const t = useI18n()
   const { systemTheme, theme, setTheme } = useTheme()
-  const currentTheme = theme === 'system' ? systemTheme : theme
+  const currentTheme = theme === 'system' ? 'dark' : theme
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
 

@@ -20,6 +20,7 @@ import Svg5 from '../homePageSvg/svg5'
 import Divider from '@/shared/ui/divider'
 import CustomImage from '@/shared/ui/customImage'
 import { YudizIcon } from '@/assets/icons'
+import GoogleSignIn from '../googleButton'
 
 export default function LoginPage() {
   const t = useI18n()
@@ -108,7 +109,8 @@ export default function LoginPage() {
           <div className='overflow-hidden flex flex-col w-full justify-center items-start'>
             <div className=' text-secondary-900 text-4xl'>Effortlessly craft polished online forms, </div>
             <div className=' text-secondary-900 text-4xl'>surveys, and streamlined workflows!</div>
-            <button onClick={() => router.push('/login')} className='w-fit px-6 py-3 bg-primary-500 text-theme rounded-lg mt-4'>Free Trial</button>
+            {/* <button onClick={() => router.push('/login')} className='w-fit px-6 py-3 bg-primary-500 text-theme rounded-lg mt-4'>Free Trial</button> */}
+            <GoogleSignIn className='mt-4'/>
           </div>
         </div>
 
@@ -128,7 +130,7 @@ export default function LoginPage() {
         </div>
 
         <div className='w-full h-[550px] grid sm:grid-cols-1 lg:grid-cols-2 justify-between bg-theme p-4 relative'>
-          <div className='overflow-hidden w-full justify-center items-center lg:pl-[200px]'>
+          <div className='overflow-hidden w-full p-4 flex justify-center items-center lg:pl-[200px]'>
             <Svg3 />
           </div>
 

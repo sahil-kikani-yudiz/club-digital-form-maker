@@ -43,5 +43,6 @@
   "add" : "Add",
   "yourReports" : "Your Reports",
   "reports" : "Reports",
-  "selectFields" : "Select Fields"
+  "selectFields" : "Select Fields",
+  "addYourCustomField" : "Add Custom Field"
 } 
